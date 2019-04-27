@@ -45,5 +45,13 @@ public class StringCalculatorTest {
         assertEquals(8, output);
     }
 
+    @Test
+    public void shouldNotSupportMoreThanTwoNumbers() {
+        String input = "1,3,5";
+        assertThrows(IllegalArgumentException.class,
+                () -> stringCalculator.add(input));
+
+    }
+
 
 }

@@ -8,7 +8,12 @@ public class StringCalculator {
             return 0;
         }
 
-        return Stream.of(numbers.split(","))
+        String[] numberArray = numbers.split(",");
+        if (numberArray.length > 2) {
+            throw new IllegalArgumentException("More than 2 numbers are not supported");
+        }
+
+        return Stream.of(numberArray)
                 .mapToInt(Integer::parseInt)
                 .sum();
     }
