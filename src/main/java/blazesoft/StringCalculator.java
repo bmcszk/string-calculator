@@ -1,5 +1,6 @@
 package blazesoft;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -26,12 +27,23 @@ public class StringCalculator {
 
     private String[] splitNumbers(String numbers) {
         if (numbers.startsWith("//")) {
-            String delimiter = numbers.substring(2, 3);
+            String regex = getDelimiterRegex(numbers);
             numbers = numbers.split("\n", 2)[1];
-            return numbers.split(Pattern.quote(delimiter));
+            return numbers.split(regex);
         } else {
             return numbers.split(",|\n");
         }
+    }
+
+    private String getDelimiterRegex(String numbers) {
+        String delimiterFormula = numbers.substring(2).split("\n", 2)[0];
+        if (delimiterFormula.startsWith("[") && delimiterFormula.endsWith("]")) {
+            delimiterFormula = delimiterFormula.substring(1, delimiterFormula.length() - 1);
+        }
+        List<String> delimiters = Arrays.asList(delimiterFormula);
+        return delimiters.stream()
+                .map(Pattern::quote)
+                .collect(Collectors.joining("|"));
     }
 
     private void validateNumbers(List<Integer> numberList) {
