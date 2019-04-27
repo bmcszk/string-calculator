@@ -27,7 +27,8 @@ public class StringCalculator {
 
     private String[] splitNumbers(String numbers) {
         if (numbers.startsWith("//")) {
-            String regex = getDelimiterRegex(numbers);
+            String delimiterFormula = numbers.substring(2).split("\n", 2)[0];
+            String regex = getDelimiterRegex(delimiterFormula);
             numbers = numbers.split("\n", 2)[1];
             return numbers.split(regex);
         } else {
@@ -35,12 +36,14 @@ public class StringCalculator {
         }
     }
 
-    private String getDelimiterRegex(String numbers) {
-        String delimiterFormula = numbers.substring(2).split("\n", 2)[0];
+    private String getDelimiterRegex(String delimiterFormula) {
+        List<String> delimiters;
         if (delimiterFormula.startsWith("[") && delimiterFormula.endsWith("]")) {
             delimiterFormula = delimiterFormula.substring(1, delimiterFormula.length() - 1);
+            delimiters = Arrays.asList(delimiterFormula.split(Pattern.quote("][")));
+        } else {
+            delimiters = Arrays.asList(delimiterFormula);
         }
-        List<String> delimiters = Arrays.asList(delimiterFormula);
         return delimiters.stream()
                 .map(Pattern::quote)
                 .collect(Collectors.joining("|"));
