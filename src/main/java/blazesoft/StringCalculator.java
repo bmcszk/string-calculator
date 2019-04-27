@@ -13,6 +13,7 @@ public class StringCalculator {
 
         List<Integer> numberList = Stream.of(splitNumbers(numbers))
                 .map(Integer::parseInt)
+                .filter(n -> n <= 1000)
                 .collect(Collectors.toList());
 
         validateNumbers(numberList);

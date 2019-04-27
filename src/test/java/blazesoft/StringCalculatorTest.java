@@ -89,6 +89,14 @@ public class StringCalculatorTest {
         assertEquals("-1,-5", thrown.getMessage());
     }
 
+    @Test
+    public void shouldIgnoreValuesGreaterThan1000() {
+        String input = "2,1001";
+        int output = stringCalculator.add(input);
+
+        assertEquals(2, output);
+    }
+
 
 
 }
