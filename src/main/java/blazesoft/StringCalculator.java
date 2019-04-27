@@ -9,9 +9,6 @@ public class StringCalculator {
         }
 
         String[] numberArray = numbers.split(",");
-        if (numberArray.length > 2) {
-            throw new IllegalArgumentException("More than 2 numbers are not supported");
-        }
 
         return Stream.of(numberArray)
                 .mapToInt(Integer::parseInt)

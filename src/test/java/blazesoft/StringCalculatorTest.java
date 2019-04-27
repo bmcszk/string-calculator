@@ -1,6 +1,7 @@
 package blazesoft;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -46,11 +47,20 @@ public class StringCalculatorTest {
     }
 
     @Test
+    @Disabled
     public void shouldNotSupportMoreThanTwoNumbers() {
         String input = "1,3,5";
         assertThrows(IllegalArgumentException.class,
                 () -> stringCalculator.add(input));
 
+    }
+
+    @Test
+    public void shouldSupportMoreThanTwoNumbers() {
+        String input = "1,3,5";
+        int output = stringCalculator.add(input);
+
+        assertEquals(9, output);
     }
 
 
