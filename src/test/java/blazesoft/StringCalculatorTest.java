@@ -4,8 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StringCalculatorTest {
 
@@ -16,13 +16,6 @@ public class StringCalculatorTest {
         stringCalculator = new StringCalculator();
     }
 
-    /*
-    Create a simple String calculator with a method int Add(string numbers)
-    The method can take 0, 1 or 2 numbers, and will return their sum (for an empty string it will return 0) for example “” or “1” or “1,2”
-    Start with the simplest test case of an empty string and move to 1 and two numbers
-    Remember to solve things as simply as possible so that you force yourself to write tests you did not think about
-    Remember to refactor after each passing test
-     */
     @Test
     public void shouldReturn0OnEmptyString() {
         String input = "";
@@ -108,6 +101,14 @@ public class StringCalculatorTest {
     @Test
     public void shouldSupportMultipleDelimiters() {
         String input = "//[*][%]\n1*2%3";
+        int output = stringCalculator.add(input);
+
+        assertEquals(6, output);
+    }
+
+    @Test
+    public void shouldSupportMultipleMulticharDelimiters() {
+        String input = "//[*&][%#]\n1*&2%#3";
         int output = stringCalculator.add(input);
 
         assertEquals(6, output);
