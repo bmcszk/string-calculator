@@ -71,5 +71,13 @@ public class StringCalculatorTest {
         assertEquals(6, output);
     }
 
+    @Test
+    public void shouldSupportCustomDelimiterBetweenNumbers() {
+        String input = "//;\n1;2;3";
+        int output = stringCalculator.add(input);
+
+        assertEquals(6, output);
+    }
+
 
 }
