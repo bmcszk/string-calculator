@@ -63,5 +63,13 @@ public class StringCalculatorTest {
         assertEquals(9, output);
     }
 
+    @Test
+    public void shouldSupportNewLinesBetweenNumbers() {
+        String input = "1\n2,3";
+        int output = stringCalculator.add(input);
+
+        assertEquals(6, output);
+    }
+
 
 }
