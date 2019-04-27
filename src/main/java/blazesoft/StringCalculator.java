@@ -1,6 +1,8 @@
 package blazesoft;
 
+import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class StringCalculator {
@@ -9,8 +11,15 @@ public class StringCalculator {
             return 0;
         }
 
-        return Stream.of(splitNumbers(numbers))
-                .mapToInt(Integer::parseInt)
+        List<Integer> numberList = Stream.of(splitNumbers(numbers))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
+
+        validateNumbers(numberList);
+
+        return numberList
+                .stream()
+                .mapToInt(x -> x)
                 .sum();
     }
 
@@ -23,4 +32,20 @@ public class StringCalculator {
             return numbers.split(",|\n");
         }
     }
+
+    private void validateNumbers(List<Integer> numberList) {
+        List<Integer> negatives = numberList.stream()
+                .filter(n -> n < 0)
+                .collect(Collectors.toList());
+
+        if (negatives.size() > 0) {
+            String exceptionMessage = negatives.stream()
+                    .map(n -> n.toString())
+                    .collect(Collectors.joining(","));
+
+            throw new NegativesNotAllowedException(exceptionMessage);
+        }
+
+    }
+
 }

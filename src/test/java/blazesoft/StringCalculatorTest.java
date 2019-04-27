@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StringCalculatorTest {
 
@@ -78,6 +79,16 @@ public class StringCalculatorTest {
 
         assertEquals(6, output);
     }
+
+    @Test
+    public void shouldNotAllowNegativeNumbers() {
+        String input = "-1,3,-5";
+        NegativesNotAllowedException thrown = assertThrows(NegativesNotAllowedException.class,
+                () -> stringCalculator.add(input));
+
+        assertEquals("-1,-5", thrown.getMessage());
+    }
+
 
 
 }
